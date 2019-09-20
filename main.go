@@ -104,6 +104,10 @@ func runMain(cmd *cobra.Command, args []string) {
 	config := &ssh.ClientConfig{
 		User: flagSSHUsername,
 		Auth: nil,
+        	//需要验证服务端，不做验证返回nil就可以，点击HostKeyCallback看源码就知道了
+        	HostKeyCallback: func(hostname string, remote net.Addr, key ssh.PublicKey) error {
+            		return nil
+        	},
 	}
 
 	// Password auth or prompt callback
